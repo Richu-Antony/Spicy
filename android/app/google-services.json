@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "232065978491",
+    "project_id": "food-app-spicy",
+    "storage_bucket": "food-app-spicy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232065978491:android:bc14946dd6e8e9518492de",
+        "android_client_info": {
+          "package_name": "com.rica.spicy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232065978491-2rop4dteu4r4ovhs4hpih9idt4322sht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGfT_kAH-WiiI0F8JpZWGqKxEcGl9YU84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232065978491-2rop4dteu4r4ovhs4hpih9idt4322sht.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
