@@ -1,5 +1,9 @@
 // List of all Texts used in the app.
 
+// Splash Screen & Main
+String TextAppName = "Spicy";
+String TextTagline = "Savor the Flavor, Order with Ease";
+
 // Onboarding Screen Text
 String TextOnboardingScreenTitle1 = "Spicy Eats";
 String TextOnboardingScreenTitle2 = "Spicy Delights";

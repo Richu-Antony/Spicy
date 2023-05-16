@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TestScreen extends StatelessWidget {
   // Variables
-  final int day = 4;
+  final int day = 5;
   final String name = "Richu Antony";
 
   const TestScreen({

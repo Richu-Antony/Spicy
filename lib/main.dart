@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:spicy/constants/text_string.dart';
+import 'package:spicy/screens/entry/onboarding_screen.dart';
 import 'package:spicy/services/firebase_options.dart';
 import 'package:spicy/screens/auth/forget_password_screen.dart';
 import 'package:spicy/screens/auth/login_screen.dart';
@@ -27,10 +30,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Brightness currentBrightness =
+        MediaQuery.of(context).platformBrightness;
+    final bool isDarkMode = currentBrightness == Brightness.dark;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
+      statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
+      systemNavigationBarColor:
+          isDarkMode ? Colors.transparent : Colors.transparent,
+      systemNavigationBarDividerColor:
+          isDarkMode ? Colors.transparent : Colors.transparent,
+      systemNavigationBarIconBrightness:
+          isDarkMode ? Brightness.light : Brightness.dark,
+    ));
     return MaterialApp(
-      title: 'Spicy',
+      title: TextAppName,
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         brightness: Brightness.light,
@@ -45,8 +61,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/": (context) => const SplashScreen(),
         "/test": (context) => const TestScreen(),
+        "/": (context) => const SplashScreen(),
+        "/onboard": (context) => const OnboardScreen(),
         "/welcome": (context) => const WelcomeScreen(),
         "/login": (context) => const LoginScreen(),
         "/signup": (context) => const SignUpScreen(),
