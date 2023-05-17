@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:spicy/constants/colors.dart';
 import 'package:spicy/constants/image_strings.dart';
+import 'package:spicy/constants/routes.dart';
 import 'package:spicy/constants/text_string.dart';
 import 'package:spicy/services/firebase_auth_service.dart';
 import 'package:spicy/widgets/customized_button.dart';
 import 'package:spicy/widgets/customized_textfield.dart';
-import 'login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({
@@ -40,20 +41,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (kDebugMode) {
       print("Sign Up Screen");
     }
-    final Brightness currentBrightness =
-        MediaQuery.of(context).platformBrightness;
-    final isDarkMode = currentBrightness == Brightness.dark;
+    final bool isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     final size = MediaQuery.of(context).size;
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //   statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
     //   statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
-    //   systemNavigationBarColor:
-    //       isDarkMode ? Colors.transparent : Colors.transparent,
-    //   systemNavigationBarDividerColor: Colors.transparent,
+    //   systemNavigationBarColor: isDarkMode ? Colors.black : Colors.white,
+    //   systemNavigationBarDividerColor:
+    //   isDarkMode ? Colors.transparent : Colors.transparent,
     //   systemNavigationBarIconBrightness:
-    //       isDarkMode ? Brightness.light : Brightness.dark,
+    //   isDarkMode ? Brightness.light : Brightness.dark,
     // ));
 
+    // Validation to return true
     bool validateData() {
       if (_usernameController.text.trim().isEmpty) {
         return false;
@@ -68,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           _passwordController.text.trim()) {
         return false;
       }
-      return true; // All data is valid
+      return true;
     }
 
     return Scaffold(
@@ -122,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
 
-                          // Welcome Text
+                          // Welcome Title
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
@@ -150,6 +151,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintText: textSignUpScreenUsername,
                             maxLength: 40,
                             isPassword: false,
+                            focusColor: Colors.white,
+                            prefixIcon: FontAwesome5.user,
+                            iconColor: isDarkMode
+                                ? AppColors.darkColorText
+                                : AppColors.lightColorText,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Username is required';
@@ -166,6 +172,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             keyboardType: TextInputType.emailAddress,
                             hintText: textSignUpScreenEmail,
                             maxLength: 40,
+                            focusColor: Colors.white,
+                            prefixIcon: Icons.email_outlined,
+                            iconColor: isDarkMode
+                                ? AppColors.darkColorText
+                                : AppColors.lightColorText,
                             isPassword: false,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -183,6 +194,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintText: textSignUpScreenPassword,
                             isPassword: true,
                             maxLength: 12,
+                            focusColor: Colors.white,
+                            prefixIcon:
+                                MaterialCommunityIcons.form_textbox_password,
+                            iconColor: isDarkMode
+                                ? AppColors.darkColorText
+                                : AppColors.lightColorText,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Password is required';
@@ -201,6 +218,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintText: textSignUpScreenConirmPassword,
                             maxLength: 12,
                             isPassword: true,
+                            focusColor: Colors.white,
+                            prefixIcon: Icons.password_outlined,
+                            iconColor: isDarkMode
+                                ? AppColors.darkColorText
+                                : AppColors.lightColorText,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Confirm Password is required';
@@ -230,11 +252,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         _emailController.text.trim(),
                                         _passwordController.text.trim());
                                     // ignore: use_build_context_synchronously
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginScreen()));
+                                    Navigator.pushReplacementNamed(
+                                        context, MyRoutes.loginScreenRoute);
+                                    // Navigator.pushReplacement(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             const LoginScreen()));
                                   } on FirebaseAuthException catch (e) {
                                     if (e.code == 'email-already-in-use') {
                                       final snackBar = SnackBar(
@@ -384,6 +408,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                           const SizedBox(height: 10),
 
+                          // Sigup Already
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
@@ -399,11 +424,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 const SizedBox(width: 4.0),
                                 InkWell(
                                   onTap: () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                const LoginScreen()));
+                                    Navigator.pushReplacementNamed(
+                                        context, MyRoutes.loginScreenRoute);
+                                    // Navigator.pushReplacement(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (_) =>
+                                    //             const LoginScreen()));
                                   },
                                   child: Text(
                                     textSignUpScreenLogin,

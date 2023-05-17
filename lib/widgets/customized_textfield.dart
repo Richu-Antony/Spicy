@@ -8,6 +8,9 @@ class CustomizedTextfield extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool? isPassword;
   final int? maxLength;
+  final Color? focusColor;
+  final IconData? prefixIcon;
+  final Color? iconColor;
   final Function(String)? onChanged;
   final FormFieldSetter<String>? onSaved;
   final FormFieldValidator<String>? validator;
@@ -20,9 +23,12 @@ class CustomizedTextfield extends StatefulWidget {
     this.keyboardType,
     this.isPassword,
     this.maxLength,
-    this.validator,
+    this.focusColor,
+    this.prefixIcon,
+    this.iconColor,
     this.onChanged,
     this.onSaved,
+    this.validator,
     this.onFieldSubmitted,
   }) : super(key: key);
 
@@ -54,6 +60,11 @@ class _CustomizedTextfieldState extends State<CustomizedTextfield> {
         autocorrect: widget.isPassword! ? false : true,
         controller: widget.myController,
         decoration: InputDecoration(
+          focusColor: widget.focusColor,
+          prefixIcon: Icon(
+            widget.prefixIcon,
+            color: widget.iconColor,
+          ),
           counter: const Offstage(),
           hintText: widget.hintText,
           suffixIcon: widget.isPassword!

@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:spicy/constants/routes.dart';
 import 'package:spicy/constants/text_string.dart';
+import 'package:spicy/constants/themes.dart';
 import 'package:spicy/screens/entry/onboarding_screen.dart';
 import 'package:spicy/services/firebase_options.dart';
 import 'package:spicy/screens/auth/forget_password_screen.dart';
@@ -15,6 +17,7 @@ import 'package:spicy/screens/entry/welcome_screen.dart';
 import 'package:spicy/screens/home/home_screen.dart';
 import 'package:spicy/screens/test.dart';
 
+// App Initilization And Run
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -23,16 +26,20 @@ void main() async {
   runApp(const MyApp());
 }
 
+// App Main Stateless Class
 class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
   });
 
+  // App Main Build Context
   @override
   Widget build(BuildContext context) {
-    final Brightness currentBrightness =
-        MediaQuery.of(context).platformBrightness;
-    final bool isDarkMode = currentBrightness == Brightness.dark;
+    if (kDebugMode) {
+      print("App Strarted Sucessfully");
+    }
+    final bool isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
       statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
@@ -42,34 +49,26 @@ class MyApp extends StatelessWidget {
       systemNavigationBarIconBrightness:
           isDarkMode ? Brightness.light : Brightness.dark,
     ));
+
     return MaterialApp(
       title: textAppName,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        brightness: Brightness.light,
-        useMaterial3: true,
-        fontFamily: GoogleFonts.poppins().fontFamily,
-      ),
-      darkTheme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        brightness: Brightness.dark,
-        useMaterial3: true,
-        fontFamily: GoogleFonts.poppins().fontFamily,
-      ),
-      initialRoute: "/",
+      theme: MyThemes.lightTheme(context),
+      darkTheme: MyThemes.darkTheme(context),
+      initialRoute: MyRoutes.initialScreenRoute,
       routes: {
-        "/test": (context) => const TestScreen(),
-        "/": (context) => const SplashScreen(),
-        "/onboard": (context) => const OnboardScreen(),
-        "/welcome": (context) => const WelcomeScreen(),
-        "/login": (context) => const LoginScreen(),
-        "/signup": (context) => const SignUpScreen(),
-        "/forgetpass": (context) => const ForgetPasswordScreen(),
-        "/otp": (context) => const OtpVerificationScreen(),
-        "/newpass": (context) => const NewPasswordScreen(),
-        "/home": (context) => const HomeScreen(),
+        MyRoutes.initialScreenRoute: (context) => const SplashScreen(),
+        MyRoutes.testScreenRoute: (context) => const TestScreen(),
+        MyRoutes.onboardingScreenRoute: (context) => const OnboardScreen(),
+        MyRoutes.welcomeScreenRoute: (context) => const WelcomeScreen(),
+        MyRoutes.loginScreenRoute: (context) => const LoginScreen(),
+        MyRoutes.signupScreenRoute: (context) => const SignUpScreen(),
+        MyRoutes.forgetpassScreenRoute: (context) =>
+            const ForgetPasswordScreen(),
+        MyRoutes.otpScreenRoute: (context) => const OtpVerificationScreen(),
+        MyRoutes.newpassScreenRoute: (context) => const NewPasswordScreen(),
+        MyRoutes.homeScreenRoute: (context) => const HomeScreen(),
       },
     );
   }

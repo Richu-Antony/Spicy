@@ -4,8 +4,8 @@ import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spicy/constants/colors.dart';
 import 'package:spicy/constants/image_strings.dart';
+import 'package:spicy/constants/routes.dart';
 import 'package:spicy/constants/text_string.dart';
-import 'package:spicy/screens/entry/welcome_screen.dart';
 
 class OnboardScreen extends StatefulWidget {
   const OnboardScreen({
@@ -31,16 +31,15 @@ class _OnboardScreenState extends State<OnboardScreen> {
     if (kDebugMode) {
       print("Onboarding Screen");
     }
-    final Brightness currentBrightness =
-        MediaQuery.of(context).platformBrightness;
-    final isDarkMode = currentBrightness == Brightness.dark;
+    final bool isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     final size = MediaQuery.of(context).size;
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //   statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
     //   statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
-    //   systemNavigationBarColor:
+    //   systemNavigationBarColor: isDarkMode ? Colors.black : Colors.white,
+    //   systemNavigationBarDividerColor:
     //       isDarkMode ? Colors.transparent : Colors.transparent,
-    //   systemNavigationBarDividerColor: Colors.transparent,
     //   systemNavigationBarIconBrightness:
     //       isDarkMode ? Brightness.light : Brightness.dark,
     // ));
@@ -50,13 +49,14 @@ class _OnboardScreenState extends State<OnboardScreen> {
           isDarkMode ? AppColors.darkColorPrimary : AppColors.lightColorPrimary,
       body: Stack(
         children: [
-          // Liquid Swiper Pages - 3
+          // Liquid Swiper Pages - Total 3 Pages Here
           LiquidSwipe(
             liquidController: liquidcontroller,
             enableSideReveal: true,
             slideIconWidget: const Icon(Icons.arrow_back_ios),
             onPageChangeCallback: onPageChangeCallback,
             pages: [
+              //
               // Page 1
               Container(
                 height: size.height,
@@ -327,10 +327,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 currentPage == 2
                     ? TextButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const WelcomeScreen()));
+                          Navigator.pushReplacementNamed(
+                              context, MyRoutes.welcomeScreenRoute);
+                          // Navigator.pushReplacement(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => const WelcomeScreen()));
                         },
                         child: Text(
                           textOnboardingScreenDone,

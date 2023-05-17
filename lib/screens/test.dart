@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class TestScreen extends StatelessWidget {
@@ -11,6 +12,21 @@ class TestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print("Test Screen");
+    }
+    final bool isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final size = MediaQuery.of(context).size;
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
+    //   statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
+    //   systemNavigationBarColor: isDarkMode ? Colors.black : Colors.white,
+    //   systemNavigationBarDividerColor:
+    //   isDarkMode ? Colors.transparent : Colors.transparent,
+    //   systemNavigationBarIconBrightness:
+    //   isDarkMode ? Brightness.light : Brightness.dark,
+    // ));
     return Scaffold(
       body: Center(
         child: Text(

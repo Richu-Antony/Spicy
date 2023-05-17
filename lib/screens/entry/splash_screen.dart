@@ -4,13 +4,13 @@ import 'package:blinking_text/blinking_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:spicy/constants/colors.dart';
 import 'package:spicy/constants/image_strings.dart';
+import 'package:spicy/constants/routes.dart';
 import 'package:spicy/constants/text_string.dart';
-import 'package:spicy/screens/home/home_screen.dart';
 import 'package:typewritertext/typewritertext.dart';
-import 'onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -34,20 +34,24 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  // Navigation conditions checks
+  void navigateToNextScreen() {
+    if (navigateToHomeScreen) {
+      Navigator.pushReplacementNamed(context, MyRoutes.homeScreenRoute);
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+    } else {
+      Navigator.pushReplacementNamed(context, MyRoutes.onboardingScreenRoute);
+      // Navigator.pushReplacement(context,
+      //     MaterialPageRoute(builder: (context) => const OnboardScreen()));
+    }
+  }
+
+  // Termination of functions
   @override
   void dispose() {
     _timer.cancel();
     super.dispose();
-  }
-
-  void navigateToNextScreen() {
-    if (navigateToHomeScreen) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
-    } else {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const OnboardScreen()));
-    }
   }
 
   @override
@@ -58,15 +62,16 @@ class _SplashScreenState extends State<SplashScreen> {
     final bool isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     final size = MediaQuery.of(context).size;
-    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    //   statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
-    //   statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
-    //   systemNavigationBarColor:
-    //       isDarkMode ? Colors.transparent : Colors.transparent,
-    //   systemNavigationBarDividerColor: Colors.transparent,
-    //   systemNavigationBarIconBrightness:
-    //       isDarkMode ? Brightness.light : Brightness.dark,
-    // ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
+      statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
+      systemNavigationBarColor:
+          isDarkMode ? AppColors.darkColorPrimary : AppColors.lightColorPrimary,
+      systemNavigationBarDividerColor:
+          isDarkMode ? Colors.transparent : Colors.transparent,
+      systemNavigationBarIconBrightness:
+          isDarkMode ? Brightness.light : Brightness.dark,
+    ));
 
     return Scaffold(
       backgroundColor:
@@ -74,10 +79,16 @@ class _SplashScreenState extends State<SplashScreen> {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
+          // Firebase Connection Check & Loading State
           if (snapshot.connectionState == ConnectionState.waiting) {
             if (kDebugMode) {
-              print("Connection State");
+              print("Firebase Connection Check & Loading State");
             }
+            Future.delayed(const Duration(seconds: 5), () {
+              if (_timer.isActive) {
+                _timer.cancel();
+              }
+            });
             return Container(
               padding: const EdgeInsets.all(30.0),
               height: size.height,
@@ -157,9 +168,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 ],
               ),
             );
-          } else if (snapshot.hasData) {
+          }
+
+          // Login Data Exist So Navigate to Home Screen
+          else if (snapshot.hasData) {
             if (kDebugMode) {
-              print("Data State");
+              print("Login Data Exist So Navigate to Home Screen");
             }
             navigateToHomeScreen = true;
             return Container(
@@ -191,10 +205,11 @@ class _SplashScreenState extends State<SplashScreen> {
                             textAlign: TextAlign.center,
                             // beginColor: Colors.black,
                             // endColor: Colors.orange,
-                            times: 500,
+                            times: 1,
                             duration: const Duration(seconds: 1),
                             style: TextStyle(
                               fontSize: 26,
+                              fontWeight: FontWeight.w900,
                               color: isDarkMode
                                   ? AppColors.darkColorText
                                   : AppColors.lightColorText,
@@ -241,11 +256,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 ],
               ),
             );
-          } else {
+          }
+
+          // Default State and Navigate to Onboarding Screen
+          else {
             if (kDebugMode) {
-              print("Default State");
+              print("Default State and Navigate to Onboarding Screen");
             }
-            // navigateToNextScreen();
             return Container(
               padding: const EdgeInsets.all(30.0),
               height: size.height,
@@ -275,10 +292,11 @@ class _SplashScreenState extends State<SplashScreen> {
                             textAlign: TextAlign.center,
                             // beginColor: Colors.black,
                             // endColor: Colors.orange,
-                            times: 500,
+                            times: 1,
                             duration: const Duration(seconds: 1),
                             style: TextStyle(
                               fontSize: 26,
+                              fontWeight: FontWeight.w900,
                               color: isDarkMode
                                   ? AppColors.darkColorText
                                   : AppColors.lightColorText,

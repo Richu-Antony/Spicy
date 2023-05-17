@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:spicy/constants/colors.dart';
 import 'package:spicy/constants/image_strings.dart';
+import 'package:spicy/constants/routes.dart';
 import 'package:spicy/constants/text_string.dart';
 import 'package:spicy/screens/auth/forget_password_screen.dart';
-import 'package:spicy/screens/auth/signup_screen.dart';
-import 'package:spicy/screens/home/home_screen.dart';
 import 'package:spicy/services/firebase_auth_service.dart';
 import 'package:spicy/widgets/customized_button.dart';
 import 'package:spicy/widgets/customized_textfield.dart';
@@ -33,20 +33,20 @@ class _LoginScreenState extends State<LoginScreen> {
     if (kDebugMode) {
       print("Login Screen");
     }
-    final Brightness currentBrightness =
-        MediaQuery.of(context).platformBrightness;
-    final isDarkMode = currentBrightness == Brightness.dark;
+    final bool isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     final size = MediaQuery.of(context).size;
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //   statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
     //   statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
-    //   systemNavigationBarColor:
-    //       isDarkMode ? Colors.transparent : Colors.transparent,
-    //   systemNavigationBarDividerColor: Colors.transparent,
+    //   systemNavigationBarColor: isDarkMode ? Colors.black : Colors.white,
+    //   systemNavigationBarDividerColor:
+    //   isDarkMode ? Colors.transparent : Colors.transparent,
     //   systemNavigationBarIconBrightness:
-    //       isDarkMode ? Brightness.light : Brightness.dark,
+    //   isDarkMode ? Brightness.light : Brightness.dark,
     // ));
 
+    // Validation to return true
     bool validateData() {
       if (_emailController.text.trim().isEmpty) {
         return false;
@@ -54,12 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
       if (_passwordController.text.trim().isEmpty) {
         return false;
       }
-      return true; // All data is valid
+      return true;
     }
 
     return Scaffold(
-      backgroundColor:
-          isDarkMode ? AppColors.darkColorPrimary : AppColors.lightColorPrimary,
+      backgroundColor: isDarkMode
+          ? AppColors.darkColorPrimaryVarient
+          : AppColors.lightColorPrimary,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -108,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
 
-                          // Welcome Text
+                          // Welcome Title
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
@@ -136,6 +137,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: textLoginScreenEmail,
                             maxLength: 40,
                             isPassword: false,
+                            focusColor: Colors.white,
+                            prefixIcon: Icons.email_rounded,
+                            iconColor: isDarkMode
+                                ? AppColors.darkColorText
+                                : AppColors.lightColorText,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Email is required';
@@ -152,6 +158,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: textLoginScreenPassword,
                             isPassword: true,
                             maxLength: 12,
+                            focusColor: Colors.white,
+                            prefixIcon:
+                                MaterialCommunityIcons.form_textbox_password,
+                            iconColor: isDarkMode
+                                ? AppColors.darkColorText
+                                : AppColors.lightColorText,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Password is required';
@@ -176,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text(
                                   textLoginScreenForgetText,
                                   style: const TextStyle(
-                                    color: Color(0xff6a707c),
+                                    color: AppColors.lightColorTextHide,
                                     fontSize: 15,
                                   ),
                                 ),
@@ -184,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
 
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 10),
 
                           // Login Custom Container Button
                           CustomizedButton(
@@ -207,11 +219,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     if (FirebaseAuth.instance.currentUser !=
                                         null) {
                                       // ignore: use_build_context_synchronously
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomeScreen()));
+                                      Navigator.pushReplacementNamed(
+                                          context, MyRoutes.homeScreenRoute);
+                                      // Navigator.pushReplacement(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             const HomeScreen()));
                                     } else {
                                       // ignore: use_build_context_synchronously
                                       showDialog(
@@ -222,11 +236,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 actions: [
                                                   ElevatedButton(
                                                     onPressed: () {
-                                                      Navigator.pushReplacement(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const SignUpScreen()));
+                                                      Navigator
+                                                          .pushReplacementNamed(
+                                                              context,
+                                                              MyRoutes
+                                                                  .signupScreenRoute);
+                                                      // Navigator.pushReplacement(
+                                                      //     context,
+                                                      //     MaterialPageRoute(
+                                                      //         builder: (context) =>
+                                                      //             const SignUpScreen()));
                                                     },
                                                     child:
                                                         const Text("Sign Up"),
@@ -389,8 +408,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
 
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 30),
 
+                          // Already have an account
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
@@ -406,11 +426,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const SizedBox(width: 4.0),
                                 InkWell(
                                   onTap: () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                const SignUpScreen()));
+                                    Navigator.pushReplacementNamed(
+                                        context, MyRoutes.signupScreenRoute);
+                                    // Navigator.pushReplacement(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (_) =>
+                                    //             const SignUpScreen()));
                                   },
                                   child: Text(
                                     textLoginScreenSignup,

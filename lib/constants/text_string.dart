@@ -44,8 +44,8 @@ String textSignUpScreenAccountExist =
 
 // Login Screen Texts
 String textLoginScreenTitle = "Welcome back! Glad \nto see you again";
-String textLoginScreenEmail = "Enter your Email";
-String textLoginScreenPassword = "Enter your Password";
+String textLoginScreenEmail = "Email";
+String textLoginScreenPassword = "Password";
 String textLoginScreenForgetText = "Forget Password?";
 String textLoginScreenButton = "Login";
 String textLoginScreenBarCenterdText = " Or Login with ";
