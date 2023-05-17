@@ -36,15 +36,14 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
       statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
-      systemNavigationBarColor:
-          isDarkMode ? Colors.transparent : Colors.transparent,
+      systemNavigationBarColor: isDarkMode ? Colors.black : Colors.white,
       systemNavigationBarDividerColor:
           isDarkMode ? Colors.transparent : Colors.transparent,
       systemNavigationBarIconBrightness:
           isDarkMode ? Brightness.light : Brightness.dark,
     ));
     return MaterialApp(
-      title: TextAppName,
+      title: textAppName,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: ThemeData(

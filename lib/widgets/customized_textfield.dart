@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:spicy/constants/colors.dart';
 
 class CustomizedTextfield extends StatefulWidget {
   final TextEditingController myController;
@@ -34,10 +35,18 @@ class _CustomizedTextfieldState extends State<CustomizedTextfield> {
 
   @override
   Widget build(BuildContext context) {
+    final Brightness currentBrightness =
+        MediaQuery.of(context).platformBrightness;
+    final isDarkMode = currentBrightness == Brightness.dark;
+    final size = MediaQuery.of(context).size;
+
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: TextFormField(
-        style: const TextStyle(fontSize: 18),
+        style: TextStyle(
+          fontSize: 18,
+          color: isDarkMode ? Colors.white : Colors.black,
+        ),
         maxLength: widget.maxLength,
         keyboardType: widget.keyboardType,
         obscureText: widget.isPassword! ? _obscureText : false,
@@ -49,9 +58,11 @@ class _CustomizedTextfieldState extends State<CustomizedTextfield> {
           hintText: widget.hintText,
           suffixIcon: widget.isPassword!
               ? IconButton(
-                  icon: Icon(_obscureText
-                      ? FontAwesomeIcons.eye
-                      : FontAwesomeIcons.eyeLowVision),
+                  icon: Icon(
+                    _obscureText
+                        ? FontAwesomeIcons.eye
+                        : FontAwesomeIcons.eyeLowVision,
+                  ),
                   onPressed: () {
                     setState(() {
                       _obscureText = !_obscureText;
@@ -60,15 +71,19 @@ class _CustomizedTextfieldState extends State<CustomizedTextfield> {
                 )
               : null,
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Color(0xffE8ECF4),
+            borderSide: BorderSide(
+              color: isDarkMode
+                  ? AppColors.darkColorTrinary
+                  : AppColors.lightColorTrinary,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Color(0xffE8ECF4),
+            borderSide: BorderSide(
+              color: isDarkMode
+                  ? AppColors.darkColorTrinary
+                  : AppColors.lightColorTrinary,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(10.0),
@@ -76,7 +91,9 @@ class _CustomizedTextfieldState extends State<CustomizedTextfield> {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
-          fillColor: const Color(0xffE8ECF4),
+          fillColor: isDarkMode
+              ? AppColors.darkColorTrinary
+              : AppColors.lightColorTrinary,
           filled: true,
         ),
         onChanged: widget.onChanged,

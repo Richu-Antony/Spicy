@@ -1,4 +1,10 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:spicy/constants/colors.dart';
+import 'package:spicy/constants/image_strings.dart';
+import 'package:spicy/constants/text_string.dart';
 import 'package:spicy/screens/auth/login_screen.dart';
 import 'package:spicy/screens/auth/signup_screen.dart';
 import 'package:spicy/widgets/customized_button.dart';
@@ -10,114 +16,130 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print("Welcome Screen");
+    }
+    final Brightness currentBrightness =
+        MediaQuery.of(context).platformBrightness;
+    final isDarkMode = currentBrightness == Brightness.dark;
+    final size = MediaQuery.of(context).size;
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
+    //   statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
+    //   systemNavigationBarColor:
+    //       isDarkMode ? Colors.transparent : Colors.transparent,
+    //   systemNavigationBarDividerColor: Colors.transparent,
+    //   systemNavigationBarIconBrightness:
+    //       isDarkMode ? Brightness.light : Brightness.dark,
+    // ));
+
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background Image
-          Container(
-            padding: EdgeInsets.zero,
-            height: MediaQuery.of(context).size.height,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                isAntiAlias: true,
-                opacity: 0.5,
-                image: AssetImage('assets/images/background/welcome_bg.jpg'),
-                fit: BoxFit.cover,
+      backgroundColor:
+          isDarkMode ? AppColors.darkColorPrimary : AppColors.lightColorPrimary,
+      body: Container(
+        margin: const EdgeInsets.all(10.0),
+        height: size.height,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Animation Container File
+            Container(
+              padding: EdgeInsets.zero,
+              height: size.height / 2,
+              width: size.width,
+              child: Lottie.asset(
+                imgWelcomeScreenjsonasset,
+                animate: true,
               ),
             ),
-          ),
 
-          // Bottom Positioned Container
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: MediaQuery.of(context).size.height * .5,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                ),
+            const SizedBox(height: 15),
+
+            FadeIn(
+              delay: const Duration(milliseconds: 500),
+              child: Text(
+                textWelcomeScreenTitle,
+                style: TextStyle(
+                    color: isDarkMode
+                        ? AppColors.darkColorText
+                        : AppColors.lightColorText,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
               ),
+            ),
+
+            const SizedBox(height: 10),
+
+            FadeIn(
+              delay: const Duration(milliseconds: 1000),
+              child: Text(
+                textWelcomeScreenSubtitle,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    height: 1.2,
+                    color: isDarkMode
+                        ? AppColors.darkColorTextVarient
+                        : AppColors.lightColorTextVarient,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
+
+            Expanded(child: Container()),
+
+            // Login Custom Container Button
+            FadeIn(
+              delay: const Duration(milliseconds: 1200),
+              child: CustomizedButton(
+                buttonText: textWelcomeScreenLoginButton,
+                borderColor: isDarkMode ? Colors.white : Colors.black,
+                buttonColor: isDarkMode ? Colors.black : Colors.black,
+                textColor: isDarkMode ? Colors.white : Colors.white,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const LoginScreen()));
+                },
+              ),
+            ),
+
+            // Sign Up Custom Container Button
+            FadeIn(
+              delay: const Duration(milliseconds: 1200),
+              child: CustomizedButton(
+                buttonText: textWelcomeScreenSignupButton,
+                borderColor: Colors.black,
+                buttonColor: Colors.white,
+                textColor: Colors.black,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const SignUpScreen()));
+                },
+              ),
+            ),
+            const SizedBox(height: 20.0),
+
+            FadeInUp(
+              delay: const Duration(seconds: 2),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const SizedBox(height: 40.0),
-
-                    // Login Custom Container Button
-                    CustomizedButton(
-                      buttonText: 'Login',
-                      borderColor: Colors.black,
-                      buttonColor: Colors.black,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const LoginScreen()));
-                      },
-                    ),
-
-                    // Sign Up Custom Container Button
-                    CustomizedButton(
-                      buttonText: 'Sign Up',
-                      borderColor: Colors.black,
-                      buttonColor: Colors.white,
-                      textColor: Colors.black,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const SignUpScreen()));
-                      },
-                    ),
-                    const SizedBox(height: 20.0),
-                    const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(
-                        "Continue as a Guest",
-                        style: TextStyle(
-                          color: Color(0xff35c22c1),
-                          fontSize: 18.0,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15)
-                  ],
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  textWelcomeScreenCheckText,
+                  style: TextStyle(
+                    color: isDarkMode
+                        ? AppColors.darkColorTextVarient
+                        : AppColors.lightColorTextVarient,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w100,
+                  ),
                 ),
               ),
             ),
-          ),
 
-          // Centered Icon and Text
-          Container(
-            padding: EdgeInsets.zero,
-            alignment: const Alignment(0, 0),
-            child: const Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image(
-                  image: AssetImage('assets/images/logo/hamburger.png'),
-                  height: 130,
-                  isAntiAlias: true,
-                ),
-                Text(
-                  'Spicy',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
+            const SizedBox(height: 15),
+          ],
+        ),
       ),
     );
   }

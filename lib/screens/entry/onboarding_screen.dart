@@ -28,16 +28,26 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print("Onboarding Screen");
+    }
     final Brightness currentBrightness =
         MediaQuery.of(context).platformBrightness;
     final isDarkMode = currentBrightness == Brightness.dark;
     final size = MediaQuery.of(context).size;
-    if (kDebugMode) {
-      print("Onboarding Screen");
-    }
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
+    //   statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
+    //   systemNavigationBarColor:
+    //       isDarkMode ? Colors.transparent : Colors.transparent,
+    //   systemNavigationBarDividerColor: Colors.transparent,
+    //   systemNavigationBarIconBrightness:
+    //       isDarkMode ? Brightness.light : Brightness.dark,
+    // ));
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      backgroundColor:
+          isDarkMode ? AppColors.darkColorPrimary : AppColors.lightColorPrimary,
       body: Stack(
         children: [
           // Liquid Swiper Pages - 3
@@ -53,8 +63,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(30.0),
                 color: isDarkMode
-                    ? AppColors.DarkColorOnboardingScreen1
-                    : AppColors.LigthColorOnboardingScreen1,
+                    ? AppColors.darkColorOnboardingScreen1
+                    : AppColors.lightColorOnboardingScreen1,
                 child: OrientationBuilder(builder: (context, orientation) {
                   return orientation == Orientation.landscape
                       ? SingleChildScrollView(
@@ -62,31 +72,31 @@ class _OnboardScreenState extends State<OnboardScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Image(
-                                image: AssetImage(ImgOnboardingScreen1),
+                                image: AssetImage(imgOnboardingScreen1),
                                 height: size.height * 0.5,
                                 isAntiAlias: true,
                               ),
                               Column(
                                 children: [
                                   Text(
-                                    TextOnboardingScreenTitle1,
+                                    textOnboardingScreenTitle1,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 28,
                                       color: isDarkMode
-                                          ? AppColors.DarkColorText
-                                          : AppColors.LightColorText,
+                                          ? AppColors.darkColorText
+                                          : AppColors.lightColorText,
                                     ),
                                   ),
                                   const SizedBox(height: 10.0),
                                   Text(
-                                    TextOnboardingScreenSubtitle1,
+                                    textOnboardingScreenSubtitle1,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                 ],
                               ),
-                              Text(TextOnboardingScreenCounter1),
+                              Text(textOnboardingScreenCounter1),
                               const SizedBox(height: 50.0)
                             ],
                           ),
@@ -95,30 +105,30 @@ class _OnboardScreenState extends State<OnboardScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Image(
-                              image: AssetImage(ImgOnboardingScreen1),
+                              image: AssetImage(imgOnboardingScreen1),
                               height: size.height * 0.5,
                             ),
                             Column(
                               children: [
                                 Text(
-                                  TextOnboardingScreenTitle1,
+                                  textOnboardingScreenTitle1,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 28,
                                     color: isDarkMode
-                                        ? AppColors.DarkColorText
-                                        : AppColors.LightColorText,
+                                        ? AppColors.darkColorText
+                                        : AppColors.lightColorText,
                                   ),
                                 ),
                                 const SizedBox(height: 10.0),
                                 Text(
-                                  TextOnboardingScreenSubtitle1,
+                                  textOnboardingScreenSubtitle1,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ],
                             ),
-                            Text(TextOnboardingScreenCounter1),
+                            Text(textOnboardingScreenCounter1),
                             const SizedBox(height: 50.0)
                           ],
                         );
@@ -131,8 +141,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(30.0),
                 color: isDarkMode
-                    ? AppColors.DarkColorOnboardingScreen2
-                    : AppColors.LigthColorOnboardingScreen2,
+                    ? AppColors.darkColorOnboardingScreen2
+                    : AppColors.lightColorOnboardingScreen2,
                 child: OrientationBuilder(builder: (context, orientation) {
                   return orientation == Orientation.landscape
                       ? SingleChildScrollView(
@@ -140,31 +150,31 @@ class _OnboardScreenState extends State<OnboardScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Image(
-                                image: AssetImage(ImgOnboardingScreen2),
+                                image: AssetImage(imgOnboardingScreen2),
                                 height: size.height * 0.5,
                                 isAntiAlias: true,
                               ),
                               Column(
                                 children: [
                                   Text(
-                                    TextOnboardingScreenTitle2,
+                                    textOnboardingScreenTitle2,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 28,
                                       color: isDarkMode
-                                          ? AppColors.DarkColorText
-                                          : AppColors.LightColorText,
+                                          ? AppColors.darkColorText
+                                          : AppColors.lightColorText,
                                     ),
                                   ),
                                   const SizedBox(height: 10.0),
                                   Text(
-                                    TextOnboardingScreenSubtitle2,
+                                    textOnboardingScreenSubtitle2,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                 ],
                               ),
-                              Text(TextOnboardingScreenCounter2),
+                              Text(textOnboardingScreenCounter2),
                               const SizedBox(height: 50.0)
                             ],
                           ),
@@ -173,30 +183,30 @@ class _OnboardScreenState extends State<OnboardScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Image(
-                              image: AssetImage(ImgOnboardingScreen2),
+                              image: AssetImage(imgOnboardingScreen2),
                               height: size.height * 0.5,
                             ),
                             Column(
                               children: [
                                 Text(
-                                  TextOnboardingScreenTitle2,
+                                  textOnboardingScreenTitle2,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 28,
                                     color: isDarkMode
-                                        ? AppColors.DarkColorText
-                                        : AppColors.LightColorText,
+                                        ? AppColors.darkColorText
+                                        : AppColors.lightColorText,
                                   ),
                                 ),
                                 const SizedBox(height: 10.0),
                                 Text(
-                                  TextOnboardingScreenSubtitle2,
+                                  textOnboardingScreenSubtitle2,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ],
                             ),
-                            Text(TextOnboardingScreenCounter2),
+                            Text(textOnboardingScreenCounter2),
                             const SizedBox(height: 50.0)
                           ],
                         );
@@ -209,8 +219,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(30.0),
                 color: isDarkMode
-                    ? AppColors.DarkColorOnboardingScreen3
-                    : AppColors.LigthColorOnboardingScreen3,
+                    ? AppColors.darkColorOnboardingScreen3
+                    : AppColors.lightColorOnboardingScreen3,
                 child: OrientationBuilder(builder: (context, orientation) {
                   return orientation == Orientation.landscape
                       ? SingleChildScrollView(
@@ -218,31 +228,31 @@ class _OnboardScreenState extends State<OnboardScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Image(
-                                image: AssetImage(ImgOnboardingScreen3),
+                                image: AssetImage(imgOnboardingScreen3),
                                 height: size.height * 0.5,
                                 isAntiAlias: true,
                               ),
                               Column(
                                 children: [
                                   Text(
-                                    TextOnboardingScreenTitle3,
+                                    textOnboardingScreenTitle3,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 28,
                                       color: isDarkMode
-                                          ? AppColors.DarkColorText
-                                          : AppColors.LightColorText,
+                                          ? AppColors.darkColorText
+                                          : AppColors.lightColorText,
                                     ),
                                   ),
                                   const SizedBox(height: 10.0),
                                   Text(
-                                    TextOnboardingScreenSubtitle3,
+                                    textOnboardingScreenSubtitle3,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                 ],
                               ),
-                              Text(TextOnboardingScreenCounter3),
+                              Text(textOnboardingScreenCounter3),
                               const SizedBox(height: 50.0)
                             ],
                           ),
@@ -251,30 +261,30 @@ class _OnboardScreenState extends State<OnboardScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Image(
-                              image: AssetImage(ImgOnboardingScreen3),
+                              image: AssetImage(imgOnboardingScreen3),
                               height: size.height * 0.5,
                             ),
                             Column(
                               children: [
                                 Text(
-                                  TextOnboardingScreenTitle3,
+                                  textOnboardingScreenTitle3,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 28,
                                     color: isDarkMode
-                                        ? AppColors.DarkColorText
-                                        : AppColors.LightColorText,
+                                        ? AppColors.darkColorText
+                                        : AppColors.lightColorText,
                                   ),
                                 ),
                                 const SizedBox(height: 10.0),
                                 Text(
-                                  TextOnboardingScreenSubtitle3,
+                                  textOnboardingScreenSubtitle3,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ],
                             ),
-                            Text(TextOnboardingScreenCounter3),
+                            Text(textOnboardingScreenCounter3),
                             const SizedBox(height: 50.0)
                           ],
                         );
@@ -296,12 +306,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     liquidcontroller.jumpToPage(page: 2);
                   },
                   child: Text(
-                    "Skip",
+                    textOnboardingScreenSkip,
                     style: TextStyle(
                       fontSize: 18,
                       color: isDarkMode
-                          ? AppColors.DarkColorText
-                          : AppColors.LightColorText,
+                          ? AppColors.darkColorText
+                          : AppColors.lightColorText,
                     ),
                   ),
                 ),
@@ -323,12 +333,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
                                   builder: (context) => const WelcomeScreen()));
                         },
                         child: Text(
-                          "Done",
+                          textOnboardingScreenDone,
                           style: TextStyle(
                             fontSize: 18,
                             color: isDarkMode
-                                ? AppColors.DarkColorText
-                                : AppColors.LightColorText,
+                                ? AppColors.darkColorText
+                                : AppColors.lightColorText,
                           ),
                         ),
                       )
@@ -340,12 +350,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
                           );
                         },
                         child: Text(
-                          "Next",
+                          textOnboardingScreenNext,
                           style: TextStyle(
                             fontSize: 18,
                             color: isDarkMode
-                                ? AppColors.DarkColorText
-                                : AppColors.LightColorText,
+                                ? AppColors.darkColorText
+                                : AppColors.lightColorText,
                           ),
                         ),
                       ),

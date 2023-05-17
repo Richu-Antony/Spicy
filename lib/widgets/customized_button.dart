@@ -18,13 +18,15 @@ class CustomizedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: InkWell(
         onTap: onPressed,
         child: Container(
           height: 56,
-          width: MediaQuery.of(context).size.width,
+          width: size.width,
           decoration: BoxDecoration(
             color: buttonColor,
             border: Border.all(
