@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var foodproductjson =
         await rootBundle.loadString("assets/json/food_products.json");
     var decodeData = jsonDecode(foodproductjson);
-    var productsData = decodeData("products");
+    var productsData = decodeData["products"];
     FoodModel.items = List.from(productsData)
         .map<Item>((item) => Item.fromMap(item))
         .toList();
@@ -75,18 +75,62 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: (FoodModel.items.isNotEmpty)
-            ? ListView.builder(
-                itemCount: FoodModel.items.length,
-                itemBuilder: (context, index) {
-                  return ItemWidget(
-                    item: FoodModel.items[index],
+            ? GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                ),
+                itemBuilder: (context, int index) {
+                  final item = FoodModel.items[index];
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: GridTile(
+                      header: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: const BoxDecoration(
+                          color: Colors.deepPurple,
+                        ),
+                        child: Text(
+                          item.name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      footer: Container(
+                        padding: EdgeInsets.zero,
+                        child: Text(
+                          item.price.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      child: Image.asset(
+                        item.image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   );
                 },
+                itemCount: FoodModel.items.length,
               )
-            : Center(
+            : const Center(
                 child: CircularProgressIndicator(),
               ),
       ),
+
+      // ListView.builder(
+      //   itemCount: FoodModel.items.length,
+      //   itemBuilder: (context, index) {
+      //     return ItemWidget(
+      //       item: FoodModel.items[index],
+      //     );
+      //   },
+      // )
 
       // body: Column(
       //   mainAxisAlignment: MainAxisAlignment.center,
