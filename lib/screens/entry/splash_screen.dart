@@ -60,22 +60,26 @@ class _SplashScreenState extends State<SplashScreen> {
       print("Splash Screen");
     }
     final bool isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
-    final size = MediaQuery.of(context).size;
+        MediaQuery
+            .of(context)
+            .platformBrightness == Brightness.dark;
+    final size = MediaQuery
+        .of(context)
+        .size;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: isDarkMode ? Colors.transparent : Colors.transparent,
       statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
       systemNavigationBarColor:
-          isDarkMode ? AppColors.darkColorPrimary : AppColors.lightColorPrimary,
+      isDarkMode ? AppColors.darkColorPrimary : AppColors.lightColorPrimary,
       systemNavigationBarDividerColor:
-          isDarkMode ? Colors.transparent : Colors.transparent,
+      isDarkMode ? Colors.transparent : Colors.transparent,
       systemNavigationBarIconBrightness:
-          isDarkMode ? Brightness.light : Brightness.dark,
+      isDarkMode ? Brightness.light : Brightness.dark,
     ));
 
     return Scaffold(
       backgroundColor:
-          isDarkMode ? AppColors.darkColorPrimary : AppColors.lightColorPrimary,
+      isDarkMode ? AppColors.darkColorPrimary : AppColors.lightColorPrimary,
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -263,6 +267,7 @@ class _SplashScreenState extends State<SplashScreen> {
             if (kDebugMode) {
               print("Default State and Navigate to Onboarding Screen");
             }
+
             return Container(
               padding: const EdgeInsets.all(30.0),
               height: size.height,

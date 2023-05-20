@@ -13,4 +13,6 @@ class MyRoutes {
   static const String otpScreenRoute = "/otp";
   static const String newpassScreenRoute = "/newpass";
   static const String homeScreenRoute = "/home";
+  static const String homeDetailScreenRoute = "/homedetail";
+  static const String cartScreenRoute = "/cart";
 }

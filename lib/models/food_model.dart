@@ -2,38 +2,51 @@
 import 'dart:convert';
 
 class FoodModel {
+  static final catModel = FoodModel._internal();
+
+  FoodModel._internal();
+
+  factory FoodModel() => catModel;
+
   static List<Item> items = [];
+
+  // Get item by id
+  Item getById(int id) =>
+      items.firstWhere((element) => element.id == id, orElse: null);
+
+  // Get item by position
+  Item getByPosition(int pos) => items[pos];
 }
 
 class Item {
   final int id;
   final String name;
   final String description;
-  final String? shortdesc;
-  final String? heading;
-  final String? recipe;
+  final String shortdesc;
+  final String heading;
+  final String recipe;
   final num price;
-  final num? stars;
-  final String? color;
+  final num stars;
+  final String color;
   final String image;
-  final String? restaurant;
-  final String? location;
-  final String? flavor;
+  final String restaurant;
+  final String location;
+  final String flavor;
 
   Item({
     required this.id,
     required this.name,
     required this.description,
-    this.shortdesc,
-    this.heading,
-    this.recipe,
+    required this.shortdesc,
+    required this.heading,
+    required this.recipe,
     required this.price,
-    this.stars,
-    this.color,
+    required this.stars,
+    required this.color,
     required this.image,
-    this.restaurant,
-    this.location,
-    this.flavor,
+    required this.restaurant,
+    required this.location,
+    required this.flavor,
   });
 
   Item copyWith({
@@ -91,17 +104,16 @@ class Item {
       id: map['id'] as int,
       name: map['name'] as String,
       description: map['description'] as String,
-      shortdesc: map['shortdesc'] != null ? map['shortdesc'] as String : null,
-      heading: map['heading'] != null ? map['heading'] as String : null,
-      recipe: map['recipe'] != null ? map['recipe'] as String : null,
+      shortdesc: map['shortdesc'] as String,
+      heading: map['heading'] as String,
+      recipe: map['recipe'] as String,
       price: map['price'] as num,
-      stars: map['stars'] != null ? map['stars'] as num : null,
-      color: map['color'] != null ? map['color'] as String : null,
+      stars: map['stars'] as num,
+      color: map['color'] as String,
       image: map['image'] as String,
-      restaurant:
-          map['restaurant'] != null ? map['restaurant'] as String : null,
-      location: map['location'] != null ? map['location'] as String : null,
-      flavor: map['flavor'] != null ? map['flavor'] as String : null,
+      restaurant: map['restaurant'] as String,
+      location: map['location'] as String,
+      flavor: map['flavor'] as String,
     );
   }
 

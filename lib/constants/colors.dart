@@ -11,7 +11,8 @@ class AppColors {
   static const lightColorTrinary = Color(0xffdcd1d2);
   static const lightColorText = Color(0xff030201);
   static const lightColorTextVarient = Color(0xff1c2541);
-  static const lightColorTextHide = Color(0xff6a707c);
+  static const lightColorTextHide = Color(0xff585f6c);
+  static const lightColorTextHideVarient = Color(0xff6a707c);
   static const lightColorTextLink = Color(0xff35c2c1);
   static const lightColorPrimaryButton = Color(0xffffffff);
   static const lightColorSecondaryButton = Color(0xffe9f4ff);
@@ -20,12 +21,13 @@ class AppColors {
 
   // Dark mode Main app colors
   static const darkColorPrimary = Color(0xff010409);
-  static const darkColorPrimaryVarient = Color(0xff011115);
-  static const darkColorSecondary = Color(0xff01242b);
+  static const darkColorSecondary = Color(0xff011115);
+  static const darkColorPrimaryVarient = Color(0xff01242b);
   static const darkColorTrinary = Color(0xff2e3034);
   static const darkColorText = Color(0xfffcfdfe);
-  static Color darkColorTextVarient = Colors.grey.shade500;
+  static const darkColorTextVarient = Color(0xffa4a4a4);
   static const darkColorTextHide = Color(0xff6a707c);
+  static const darkColorTextHideVarient = Color(0xff6a707c);
   static const darkColorTextLink = Color(0xff35c2c1);
   static const darkColorPrimaryButton = Color(0xffffffff);
   static const darkColorSecondaryButton = Color(0xffb3c2ff);
@@ -41,4 +43,8 @@ class AppColors {
   static const darkColorOnboardingScreen1 = Color(0xff010409);
   static const darkColorOnboardingScreen2 = Color(0xff01242b);
   static const darkColorOnboardingScreen3 = Color(0xff2e3034);
+
+  //  Custom Test Colors For UI
+  static const creamColor = Color(0xfff5f5f5);
+  static const darkBluishColor = Color(0xff403b58);
 }
